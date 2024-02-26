@@ -20,5 +20,6 @@ func Run() {
 	r.POST("/signup", controllers.SignUp)
 	r.POST("/signin", controllers.SignIn)
 	r.GET("/validate", middlewares.RequireAuthentication, controllers.Validate)
+	r.POST("/create-warden", middlewares.RequireAuthentication, controllers.CreateWarden)
 	r.Run("localhost:" + os.Getenv("PORT"))
 }

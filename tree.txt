@@ -1,16 +1,23 @@
 .
+├── cmd
+│   └── main.go
 ├── configs
 ├── controllers
 │   ├── authController.go
 │   └── superAdminController.go
 ├── go.mod
 ├── go.sum
+├── helpers
+│   └── helpers.go
 ├── initializers
-│   └── loadEnvVariables.go
-├── main.go
+│   ├── connectToPostgresql.go
+│   ├── loadEnvVariables.go
+│   └── syncPostgresql.go
 ├── middlewares
+│   └── requireAuthentication.go
 ├── models
-│   └── superAdminModel.go
+│   ├── superAdminModel.go
+│   └── wardenModel.go
 ├── randomTest.go
 ├── routes
 ├── server
@@ -18,4 +25,4 @@
 ├── tests
 └── tree.txt
 
-8 directories, 10 files
+10 directories, 15 files
