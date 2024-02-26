@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/lordofthemind/hostelGinPgGormDocker/controllers"
 	"github.com/lordofthemind/hostelGinPgGormDocker/initializers"
 )
 
@@ -15,10 +16,6 @@ func init() {
 
 func Run() {
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	r.POST("/signup", controllers.SignUp)
 	r.Run("localhost:" + os.Getenv("PORT"))
 }
