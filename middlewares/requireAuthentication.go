@@ -17,7 +17,7 @@ func RequireAuthentication(c *gin.Context) {
 
 	// Get the cookie off request
 
-	tokenString, err := c.Cookie("Authorization")
+	tokenString, err := c.Cookie("SuperAdminAuthorization")
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		c.Abort()

@@ -59,3 +59,103 @@ func CreateWarden(c *gin.Context) {
 
 	c.JSON(201, gin.H{"data": newWarden, "message": "New Warden account created successfully"})
 }
+
+func GetAllWarden(c *gin.Context) {
+	var wardens []models.WardenModel
+	result := initializers.DB.Find(&wardens)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"data": wardens})
+}
+
+func GetWardenByID(c *gin.Context) {
+	var warden models.WardenModel
+	result := initializers.DB.First(&warden, c.Param("id"))
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"data": warden})
+}
+
+func CreateHostel(c *gin.Context) {
+	var newHostel models.HostelModel
+	if err := c.ShouldBindJSON(&newHostel); err != nil {
+		c.JSON(400, gin.H{"error": "Invalid JSON payload"})
+		return
+	}
+
+	// Validate the model
+	// if err := newHostel.Validate(); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+
+	// Create the hostel
+	result := initializers.DB.Create(&newHostel)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	c.JSON(201, gin.H{"data": newHostel, "message": "New Hostel created successfully"})
+}
+
+func GetAllHostel(c *gin.Context) {
+	var hostels []models.HostelModel
+	result := initializers.DB.Find(&hostels)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"data": hostels})
+}
+
+func GetHostelByID(c *gin.Context) {
+	var hostel models.HostelModel
+	result := initializers.DB.First(&hostel, c.Param("id"))
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"data": hostel})
+}
+
+func UpdateHostelByID(c *gin.Context) {
+	var hostel models.HostelModel
+	result := initializers.DB.First(&hostel, c.Param("id"))
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	if err := c.ShouldBindJSON(&hostel); err != nil {
+		c.JSON(400, gin.H{"error": "Invalid JSON payload"})
+		return
+	}
+
+	result = initializers.DB.Save(&hostel)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"data": hostel})
+}
+
+func DeleteHostelByID(c *gin.Context) {
+	var hostel models.HostelModel
+	result := initializers.DB.First(&hostel, c.Param("id"))
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	result = initializers.DB.Delete(&hostel)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"message": "Hostel deleted successfully"})
+}

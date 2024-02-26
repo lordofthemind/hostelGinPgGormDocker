@@ -99,7 +99,7 @@ func SignIn(c *gin.Context) {
 
 			// send the token or set the cookie
 			c.SetSameSite(http.SameSiteLaxMode)
-			c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
+			c.SetCookie("SuperAdminAuthorization", tokenString, 3600*24*30, "", "", false, true)
 			c.JSON(http.StatusOK, gin.H{"message": "User logged in successfully", "user_type": "super_admin"})
 			return
 		}
@@ -128,7 +128,7 @@ func SignIn(c *gin.Context) {
 
 			// send the token or set the cookie
 			c.SetSameSite(http.SameSiteLaxMode)
-			c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
+			c.SetCookie("WardenAuthorization", tokenString, 3600*24*30, "", "", false, true)
 			c.JSON(http.StatusOK, gin.H{"message": "User logged in successfully", "user_type": "warden"})
 			return
 		}

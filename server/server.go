@@ -21,5 +21,12 @@ func Run() {
 	r.POST("/signin", controllers.SignIn)
 	r.GET("/validate", middlewares.RequireAuthentication, controllers.Validate)
 	r.POST("/create-warden", middlewares.RequireAuthentication, controllers.CreateWarden)
+	r.GET("/get-All-warden", middlewares.RequireAuthentication, controllers.GetAllWarden)
+	r.GET("/get-warden/:id", middlewares.RequireAuthentication, controllers.GetWardenByID)
+	r.POST("/create-Hostel", middlewares.RequireAuthentication, controllers.CreateHostel)
+	r.GET("/get-All-Hostel", middlewares.RequireAuthentication, controllers.GetAllHostel)
+	r.GET("/get-Hostel/:id", middlewares.RequireAuthentication, controllers.GetHostelByID)
+	r.PUT("/update-Hostel/:id", middlewares.RequireAuthentication, controllers.UpdateHostelByID)
+	r.DELETE("/delete-Hostel/:id", middlewares.RequireAuthentication, controllers.DeleteHostelByID)
 	r.Run("localhost:" + os.Getenv("PORT"))
 }
