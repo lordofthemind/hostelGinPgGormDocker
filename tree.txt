@@ -1,0 +1,15 @@
+.
+├── configs
+├── controllers
+├── go.mod
+├── go.sum
+├── initilizers
+├── main.go
+├── middlewares
+├── models
+├── routes
+├── server.go
+├── tests
+└── tree.txt
+
+7 directories, 5 files
