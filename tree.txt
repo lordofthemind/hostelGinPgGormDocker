@@ -1,15 +1,21 @@
 .
 ├── configs
 ├── controllers
+│   ├── authController.go
+│   └── superAdminController.go
 ├── go.mod
 ├── go.sum
-├── initilizers
+├── initializers
+│   └── loadEnvVariables.go
 ├── main.go
 ├── middlewares
 ├── models
+│   └── superAdminModel.go
+├── randomTest.go
 ├── routes
-├── server.go
+├── server
+│   └── server.go
 ├── tests
 └── tree.txt
 
-7 directories, 5 files
+8 directories, 10 files
