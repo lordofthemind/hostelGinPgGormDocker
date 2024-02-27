@@ -11,17 +11,17 @@ import (
 )
 
 func CreateWarden(c *gin.Context) {
-	var newWarden models.WardenModel
+	var newWarden models.CoordinatorModel
 	if err := c.ShouldBindJSON(&newWarden); err != nil {
 		c.JSON(400, gin.H{"error": "Invalid JSON payload"})
 		return
 	}
 
 	// Validate the model
-	if err := newWarden.Validate(); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	// if err := newWarden.Validate(); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
 	// Check if the email is unique
 	if !helpers.IsUnique("email", newWarden.Email) {
@@ -61,7 +61,7 @@ func CreateWarden(c *gin.Context) {
 }
 
 func GetAllWarden(c *gin.Context) {
-	var wardens []models.WardenModel
+	var wardens []models.CoordinatorModel
 	result := initializers.DB.Find(&wardens)
 	if result.Error != nil {
 		c.JSON(500, gin.H{"error": result.Error.Error()})
@@ -71,7 +71,7 @@ func GetAllWarden(c *gin.Context) {
 }
 
 func GetWardenByID(c *gin.Context) {
-	var warden models.WardenModel
+	var warden models.CoordinatorModel
 	result := initializers.DB.First(&warden, c.Param("id"))
 	if result.Error != nil {
 		c.JSON(500, gin.H{"error": result.Error.Error()})

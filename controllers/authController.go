@@ -22,10 +22,10 @@ func SignUp(c *gin.Context) {
 	}
 
 	// Validate the model
-	if err := superAdmin.Validate(); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	// if err := superAdmin.Validate(); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
 	// Check if the email is unique
 	if !helpers.IsUnique("email", superAdmin.Email) {
@@ -108,7 +108,7 @@ func SignIn(c *gin.Context) {
 	}
 
 	// Check in WardenModel
-	var warden models.WardenModel
+	var warden models.CoordinatorModel
 	resultWarden := initializers.DB.
 		Where("username = ? OR email = ? OR phone = ?", loginCredentials.LoginIdentifier, loginCredentials.LoginIdentifier, loginCredentials.LoginIdentifier).
 		First(&warden)
