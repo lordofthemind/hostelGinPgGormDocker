@@ -66,10 +66,12 @@ func SignUp(c *gin.Context) {
 
 func SignIn(c *gin.Context) {
 	// Sign in a user
-	var loginCredentials struct {
-		LoginIdentifier string `json:"login_identifier" binding:"required"`
-		Password        string `json:"password" binding:"required"`
-	}
+	// var loginCredentials struct {
+	// 	LoginIdentifier string `json:"login_identifier" binding:"required"`
+	// 	Password        string `json:"password" binding:"required"`
+	// }
+
+	var loginCredentials models.LoginCredentialModel
 
 	if err := c.ShouldBindJSON(&loginCredentials); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON payload"})

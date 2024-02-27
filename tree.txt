@@ -16,13 +16,18 @@
 ├── middlewares
 │   └── requireAuthentication.go
 ├── models
+│   ├── authLoginModel.go
+│   ├── hostelModel.go
+│   ├── studentModel.go
 │   ├── superAdminModel.go
 │   └── wardenModel.go
-├── randomTest.go
 ├── routes
+├── run
 ├── server
 │   └── server.go
+├── test
 ├── tests
+│   └── signup_test.go
 └── tree.txt
 
-10 directories, 15 files
+10 directories, 20 files
