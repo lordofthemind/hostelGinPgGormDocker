@@ -20,7 +20,7 @@ func Run() {
 	r.POST("/signup", controllers.SignUp)
 	r.POST("/signin", controllers.SignIn)
 	r.GET("/validate", middlewares.RequireAuthentication, controllers.Validate)
-	r.POST("/create-warden", middlewares.RequireAuthentication, controllers.CreateWarden)
+	r.POST("/create-warden", middlewares.RequireAuthentication, controllers.CreateCoordinator)
 	r.GET("/get-All-warden", middlewares.RequireAuthentication, controllers.GetAllWarden)
 	r.GET("/get-warden/:id", middlewares.RequireAuthentication, controllers.GetWardenByID)
 	r.POST("/create-Hostel", middlewares.RequireAuthentication, controllers.CreateHostel)

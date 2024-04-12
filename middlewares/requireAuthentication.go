@@ -16,11 +16,9 @@ func RequireAuthentication(c *gin.Context) {
 	fmt.Println("Required Authentication middleware")
 
 	// Get the cookie off request
-
 	tokenString, err := c.Cookie("SuperAdminAuthorization")
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
-		c.Abort()
 		return
 	}
 
@@ -35,33 +33,31 @@ func RequireAuthentication(c *gin.Context) {
 
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
-		c.Abort()
 		return
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-
-		//Check the expiration date
-
+		// Check the expiration date
 		if float64(time.Now().Unix()) > claims["expires"].(float64) {
 			c.AbortWithStatus(http.StatusUnauthorized)
+			return
 		}
 
-		// find the user with token subject
-
+		// Find the user with token subject
 		var user models.SuperAdminModel
-		initializers.DB.First(&user, "id = ?", claims["subject"])
-		if user.ID == 0 {
+		result := initializers.DB.First(&user, "id = ?", claims["subject"])
+		if result.Error != nil || result.RowsAffected == 0 {
 			c.AbortWithStatus(http.StatusUnauthorized)
+			return
 		}
 
-		//attach to request context
-		c.Set("user", user)
-		// continue
+		// Attach SuperAdmin ID to the request context
+		c.Set("superAdminID", user.ID)
+
+		// Continue
 		c.Next()
 	} else {
 		c.AbortWithStatus(http.StatusUnauthorized)
-		c.Abort()
 		return
 	}
 }

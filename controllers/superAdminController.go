@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,18 +11,40 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func CreateWarden(c *gin.Context) {
-	var newWarden models.CoordinatorModel
-	if err := c.ShouldBindJSON(&newWarden); err != nil {
-		c.JSON(400, gin.H{"error": "Invalid JSON payload"})
+func CreateCoordinator(c *gin.Context) {
+	// Get SuperAdmin ID from context
+	superAdminID, exists := c.Get("superAdminID")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "SuperAdmin ID not found in context"})
 		return
 	}
 
+	// Convert superAdminID to uint
+	createdBy, ok := superAdminID.(uint)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error converting SuperAdmin ID"})
+		return
+	}
+
+	var newWarden models.CoordinatorModel
+	rawJSON, _ := c.GetRawData()
+	fmt.Println("Raw JSON Payload:", string(rawJSON))
+
+	// Attempt to bind the JSON payload
+	if err := c.ShouldBindJSON(&newWarden); err != nil {
+		fmt.Println("Error binding JSON:", err.Error())
+		c.JSON(400, gin.H{"error": err, "message": "Invalid JSON payload"})
+		return
+	}
+
+	// Set the CreatedBy field with the SuperAdmin's ID
+	newWarden.CreatedBy = createdBy
+
 	// Validate the model
-	// if err := newWarden.Validate(); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
+	if err := newWarden.Validate(); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	// Check if the email is unique
 	if !helpers.IsUnique("email", newWarden.Email) {

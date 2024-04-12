@@ -4,6 +4,7 @@
 ├── configs
 ├── controllers
 │   ├── authController.go
+│   ├── co-ordinatorController.go
 │   └── superAdminController.go
 ├── go.mod
 ├── go.sum
@@ -17,10 +18,13 @@
 │   └── requireAuthentication.go
 ├── models
 │   ├── authLoginModel.go
+│   ├── baseModel.go
+│   ├── bedModel.go
+│   ├── coordinatorModel.go
 │   ├── hostelModel.go
 │   ├── studentModel.go
 │   ├── superAdminModel.go
-│   └── wardenModel.go
+│   └── testModel.go
 ├── routes
 ├── run
 ├── server
@@ -30,4 +34,4 @@
 │   └── signup_test.go
 └── tree.txt
 
-10 directories, 20 files
+10 directories, 24 files

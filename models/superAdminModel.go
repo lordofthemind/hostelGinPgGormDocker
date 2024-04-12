@@ -7,8 +7,8 @@ import (
 
 type SuperAdminModel struct {
 	PersonModel
-	PasswordHash string         `gorm:"not null" json:"password_hash" binding:"required"`
-	Hostels      []*HostelModel `json:"hostels" gorm:"foreignKey:AdminID"`
+	PasswordHash string         `gorm:"not null" json:"password" binding:"required"`
+	Hostels      []*HostelModel `json:"hostels,omitempty" gorm:"foreignKey:AdminID"`
 	Role         string         `gorm:"not null" json:"role" binding:"required"`
 }
 
