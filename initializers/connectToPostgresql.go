@@ -13,7 +13,7 @@ var DB *gorm.DB
 
 func ConnectToPostgresql() {
 	var err error
-	postgresqlConnectionString := os.Getenv("ELEPHANT_CONNECTION")
+	postgresqlConnectionString := os.Getenv("PG_DB_CONN")
 	DB, err = gorm.Open(postgres.Open(postgresqlConnectionString), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
